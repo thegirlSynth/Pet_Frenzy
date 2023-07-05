@@ -20,8 +20,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                Pet Frenzy
-                <!-- Add Logo here  <img src="{% static 'filename.png' %}" width="100" height="50"/>-->
+                <img src="{% static 'core/images/banner/Logo.png' %}" width="100" height="30"/>
             </a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -69,41 +68,41 @@
                         aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown mx-2">
+                        <a class="nav-link text-white dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Synth
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li><a class="dropdown-item" href="#">Orders</a></li>
+                            <li><a class="dropdown-item" href="#">Change Password</a></li>
+                            <li><a class="dropdown-item" href="#">Logout</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link text-white" href="#">Cart <span class="badge rounded-pill bg-danger bg-gradient">
+                            3</span></a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link text-white" href="#">Login</a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link text-white" href="#">Sign Up</a>
+                    </li>
+                </ul>
             </div>
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item dropdown mx-2">
-                    <a class="nav-link text-white dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        Synth
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Profile</a></li>
-                        <li><a class="dropdown-item" href="#">Orders</a></li>
-                        <li><a class="dropdown-item" href="#">Change Password</a></li>
-                        <li><a class="dropdown-item" href="#">Logout</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item mx-2">
-                    <a class="nav-link text-white" href="#">Cart 3</a>
-                </li>
-                <li class="nav-item mx-2">
-                    <a class="nav-link text-white" href="#">Wishlist 11</a>
-                </li>
-                <li class="nav-item mx-2">
-                    <a class="nav-link text-white" href="#">Login</a>
-                </li>
-                <li class="nav-item mx-2">
-                    <a class="nav-link text-white" href="#">Registration</a>
-                </li>
-            </ul>
         </div>
     </nav>
 
+    {% block welcome %}{% endblock welcome %}
     {% block banner-slider %}{% endblock banner-slider %}
+    {% block info %}{% endblock info %}
     {% block main-content %}{% endblock main-content %}
 
-    <footer class="container-fluid fixed-bottom bg-primary text-center p-2 mt-5">
-        Copyright: 2023 || Developed by thegirlSynth
+    <footer class="container-fluid  bg-primary text-center p-2 mt-5">
+        Copyright: 2023 | Developed by thegirlSynth
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"

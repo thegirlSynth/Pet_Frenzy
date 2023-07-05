@@ -3,4 +3,4 @@ from django.shortcuts import render
 
 # Create your views here.
 def homepage_view(request):
-    return render(request, "core/index.html")
+    return render(request, "core/home.html")

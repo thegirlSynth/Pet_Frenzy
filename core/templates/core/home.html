@@ -2,6 +2,10 @@
 {% load static %}
 {% block title %} Home {% endblock title %}
 
+<!-- {% block welcom %}
+<h1>Welcome to Pet Frenzy!</h1>
+{% endblock welcom %} -->
+
 {% block banner-slider %}
 <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-indicators">
@@ -11,22 +15,19 @@
             aria-label="Slide 2"></button>
         <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
             aria-label="Slide 3"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3"
-            aria-label="Slide 4"></button>
+
     </div>
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img src="{% static 'core/images/banner/b1.jpg' %}" class="d-block w-100" alt="...">
+            <img src="{% static 'core/images/banner/b1.png' %}" class="d-block w-100" alt="..." >
         </div>
         <div class="carousel-item">
-            <img src="{% static 'core/images/banner/b2.jpg'%}" class="d-block w-100" alt="...">
+            <img src="{% static 'core/images/banner/b2.png'%}" class="d-block w-100" alt="...">
         </div>
         <div class="carousel-item">
-            <img src="{% static 'core/images/banner/b3.jpg' %}" class="d-block w-100" alt="...">
+            <img src="{% static 'core/images/banner/b3.png' %}" class="d-block w-100" alt="...">
         </div>
-        <div class="carousel-item">
-            <img src="{% static 'core/images/banner/b4.jpg' %}" class="d-block w-100" alt="...">
-        </div>
+
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
         data-bs-slide="prev">
@@ -41,6 +42,95 @@
 </div>
 {% endblock banner-slider %}
 
+{% block info %}
+<div class="container">
+    <div class="row bg-primary text-center p-5 text-white border-bottom shadow">
+        <h2>Discover a World of Pets</h2>
+        <p>Explore our extensive collection of pets available for adoption. Whether you're looking for a playful puppy, a cuddly kitten, or a loyal companion, we have a wide variety of pets waiting for their forever homes.</p>
+    </div >
+</div>
+{% endblock info %}
+
 {% block main-content %}
-<h1>Welcome to Pet Frenzy!</h1>
-{% endblock main-content%}
+<div class="container">
+    <h2 class="text-center">Furry Friends</h2>
+    <br>
+    <div class="row container">
+        <div class="col-md-4 col-sm-4 mi-go wow fadeInUp" data-wow-duration="1s" dat-wow-delay="0.6s"
+        style="animation-duration: 1s; animation-delay: 0.6s; animation-name: none">
+            <div class="">
+                <a href="#">
+                    <div class="text-center goodnessseccont">
+                        <img src="{% static 'core\images\product\dog1.png' %}" class="img-responsive" alt="..." >
+                        <p class="mlkpro">Dog</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-sm-4 mi-go wow fadeInUp" data-wow-duration="1s" dat-wow-delay="0.6s"
+        style="animation-duration: 1s; animation-delay: 0.6s; animation-name: none">
+            <div class="">
+                <a href="#">
+                    <div class="text-center goodnessseccont">
+                        <img src="{% static 'core\images\product\dog1.png' %}" class="img-responsive" alt="..." >
+                        <p class="mlkpro">Dog</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-sm-4 mi-go wow fadeInUp" data-wow-duration="1s" dat-wow-delay="0.6s"
+        style="animation-duration: 1s; animation-delay: 0.6s; animation-name: none">
+            <div class="">
+                <a href="#">
+                    <div class="text-center goodnessseccont">
+                        <img src="{% static 'core\images\product\dog1.png' %}" class="img-responsive" alt="..." >
+                        <p class="mlkpro">Dog</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="row container">
+        <div class="col-md-4 col-sm-4 mi-go wow fadeInUp" data-wow-duration="1s" dat-wow-delay="0.6s"
+        style="animation-duration: 1s; animation-delay: 0.6s; animation-name: none">
+            <div class="">
+                <a href="#">
+                    <div class="text-center goodnessseccont">
+                        <img src="{% static 'core\images\product\dog1.png' %}" class="img-responsive" alt="..." >
+                        <p class="mlkpro">Dog</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-sm-4 mi-go wow fadeInUp" data-wow-duration="1s" dat-wow-delay="0.6s"
+        style="animation-duration: 1s; animation-delay: 0.6s; animation-name: none">
+            <div class="">
+                <a href="#">
+                    <div class="text-center goodnessseccont">
+                        <img src="{% static 'core\images\product\dog1.png' %}" class="img-responsive" alt="..." >
+                        <p class="mlkpro">Dog</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-sm-4 mi-go wow fadeInUp" data-wow-duration="1s" dat-wow-delay="0.6s"
+        style="animation-duration: 1s; animation-delay: 0.6s; animation-name: none">
+            <div class="">
+                <a href="#">
+                    <div class="text-center goodnessseccont">
+                        <img src="{% static 'core\images\product\dog1.png' %}" class="img-responsive" alt="..." >
+                        <p class="mlkpro">Dog</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock main-content %}

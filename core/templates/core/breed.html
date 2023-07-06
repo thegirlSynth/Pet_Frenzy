@@ -11,6 +11,7 @@
                     {% for breed in breeds %}
                         <a href="{% url 'category-breed' category breed %}" class="list-group-item list-group-item-action " aria-current="true">{{breed}}</a>
                     {% endfor %}
+                    <a href="{% url 'category' category %}" class="list-group-item list-group-item-action " aria-current="true">All</a>
                 </div>
             </div>
 

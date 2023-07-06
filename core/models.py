@@ -23,6 +23,7 @@ class Pet(models.Model):
     """
 
     name = models.CharField(max_length=100)
+    breed = models.CharField(max_length=100)
     age_in_weeks = models.IntegerField()
     price = models.FloatField()
     description = models.TextField()

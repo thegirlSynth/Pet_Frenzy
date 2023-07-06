@@ -20,7 +20,18 @@ class CategoryView(View):
     def get(self, request, value):
         pets = Pet.objects.filter(category=value)
         names = Pet.objects.filter(category=value).values("name")
+        breeds = pets.values_list("breed", flat=True).distinct()
+        category = value
         return render(request, "core/category.html", locals())
+
+
+class BreedView(View):
+    def get(self, request, category, value):
+        pets = Pet.objects.filter(breed=value)
+        names = Pet.objects.filter(breed=value, category=category).values("name")
+        breeds = Pet.objects.values_list("breed", flat=True).distinct()
+        category = category
+        return render(request, "core/breed.html", locals())
 
 
 class CategoryName(View):

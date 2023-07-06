@@ -7,9 +7,23 @@ from .models import Pet
 # Create your views here.
 def homepage_view(request):
     """
-    This is a function-based view that returns the homepage of the website.
+    Returns the homepage of the website.
     """
     return render(request, "core/home.html")
+
+
+def aboutpage_view(request):
+    """
+    Returns the about page of the website.
+    """
+    return render(request, "core/about.html")
+
+
+def contactpage_view(request):
+    """
+    Returns the about page of the website.
+    """
+    return render(request, "core/contact.html")
 
 
 class CategoryView(View):

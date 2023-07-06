@@ -2,6 +2,8 @@ from django.db.models import Count
 from django.shortcuts import render
 from django.views import View
 from .models import Pet
+from .forms import UserRegistrationForm
+from django.contrib import messages
 
 
 # Create your views here.
@@ -59,3 +61,18 @@ class PetDetails(View):
     def get(self, request, num):
         pet = Pet.objects.get(pk=num)
         return render(request, "core/details.html", locals())
+
+
+class UserRegistrationView(View):
+    def get(self, request):
+        form = UserRegistrationForm()
+        return render(request, "core/userregistration.html", locals())
+
+    def post(self, request):
+        form = UserRegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Congratulations! Welcome aboard.")
+        else:
+            messages.warning(request, "Invalid input data")
+        return render(request, "core/userregistration.html", locals())

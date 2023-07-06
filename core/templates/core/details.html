@@ -1,0 +1,33 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %} Pet Details{% endblock title %}
+
+{% block main-content %}
+    <div class="container">
+        <div class="row flex justify-content-between">
+            <div class="img2 col-lg-5 mt-5" style="width: 600px; height: 400px;">
+                <img src="{{pet.pet_image.url}}" class="image col-xs-6 col-sm-12 col-lg-12 mt-3 text-sm-center w-100 h-80" alt=""/>
+            </div>
+            <div class="col-lg-5 flex-column justify-content-between d-flex">
+                <div>
+                    <h1 class="mt-5" style="font-family: Georgia; font-size: 50px;">{{pet.name}}</h1>
+                    <h5>${{pet.price}}</h5>
+                </div> <br>
+
+                <div>
+                    <h4>Pet Features</h4>
+                    <h5>Age: {{pet.age_in_weeks}} weeks</h5>
+                    <div class="fs-5" style="font-family:Rajdhani;">{{pet.description}}</div>
+                </div> <br>
+
+                <div class="buttons row flex" style="font-family: Rajdhani;">
+                    <button type="submit" class="d-grid gap-2 btn1 btn btn-danger p-1 m-1 btn-lg text-decoration-none text-white">
+                        Add to Cart
+                    </button>
+                    <div class="btn btn-dark p-1 m-1 btn-lg"><a href="#" class="text-decoration-none text-white">Buy Now </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock main-content %}

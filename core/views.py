@@ -1,5 +1,5 @@
 from django.db.models import Count
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 from .models import Pet, PetUser
 from .forms import UserRegistrationForm, UserProfileForm
@@ -109,3 +109,33 @@ class ProfileView(View):
             messages.warning(request, "Invalid input data")
 
         return render(request, "core/profile.html", locals())
+
+
+def address_view(request):
+    address = PetUser.objects.filter(user=request.user)
+    return render(request, "core/address.html", locals())
+
+
+class UpdateAddress(View):
+    def get(self, request, pk):
+        add = PetUser.objects.get(pk=pk)
+        form = UserProfileForm(instance=add)
+        return render(request, "core/updateaddress.html", locals())
+
+    def post(self, request, pk):
+        form = UserProfileForm(request.POST)
+        if form.is_valid():
+            add = PetUser.objects.get(pk=pk)
+            add.user = request.user
+            add.name = form.cleaned_data["name"]
+            add.locality = form.cleaned_data["locality"]
+            add.city = form.cleaned_data["city"]
+            add.mobile = form.cleaned_data["mobile"]
+            add.zipcode = form.cleaned_data["zipcode"]
+            add.state = form.cleaned_data["state"]
+            add.save()
+            messages.success(request, "Congratulations! Profile updated.")
+        else:
+            messages.warning(request, "Invalid input data")
+
+        return redirect("address")

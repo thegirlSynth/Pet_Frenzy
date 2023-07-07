@@ -3,12 +3,14 @@ from .views import (
     homepage_view,
     aboutpage_view,
     contactpage_view,
+    address_view,
     CategoryView,
     CategoryName,
     PetDetails,
     BreedView,
     UserRegistrationView,
     ProfileView,
+    UpdateAddress,
 )
 from django.conf import settings
 from django.conf.urls.static import static
@@ -27,7 +29,8 @@ urlpatterns = [
     ),
     path("pet-details/<int:num>", PetDetails.as_view(), name="pet-details"),
     path("profile/", ProfileView.as_view(), name="profile"),
-    path("address/", ProfileView.as_view(), name="address"),
+    path("address/", address_view, name="address"),
+    path("update-address/<int:pk>", UpdateAddress.as_view(), name="update-address"),
     #
     # login authentication
     #

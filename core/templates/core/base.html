@@ -75,7 +75,7 @@
                             Synth
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
                             <li><a class="dropdown-item" href="#">Orders</a></li>
                             <li><a class="dropdown-item" href="#">Change Password</a></li>
                             <li><a class="dropdown-item" href="#">Logout</a></li>
@@ -86,7 +86,7 @@
                             3</span></a>
                     </li>
                     <li class="nav-item mx-2">
-                        <a class="nav-link text-white" href="#">Login</a>
+                        <a class="nav-link text-white" href="{% url 'login' %}">Login</a>
                     </li>
                     <li class="nav-item mx-2">
                         <a class="nav-link text-white" href="{% url 'signup' %}">Sign Up</a>

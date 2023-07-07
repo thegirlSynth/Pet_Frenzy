@@ -1,8 +1,8 @@
 from django.db.models import Count
 from django.shortcuts import render
 from django.views import View
-from .models import Pet
-from .forms import UserRegistrationForm
+from .models import Pet, PetUser
+from .forms import UserRegistrationForm, UserProfileForm
 from django.contrib import messages
 
 
@@ -76,3 +76,36 @@ class UserRegistrationView(View):
         else:
             messages.warning(request, "Invalid input data")
         return render(request, "core/userregistration.html", locals())
+
+
+class ProfileView(View):
+    def get(self, request):
+        form = UserProfileForm()
+        return render(request, "core/profile.html", locals())
+
+    def post(self, request):
+        form = UserProfileForm(request.POST)
+        if form.is_valid():
+            user = request.user
+            name = form.cleaned_data["name"]
+            locality = form.cleaned_data["locality"]
+            city = form.cleaned_data["city"]
+            mobile = form.cleaned_data["mobile"]
+            zipcode = form.cleaned_data["zipcode"]
+            state = form.cleaned_data["state"]
+
+            newUser = PetUser(
+                user=user,
+                name=name,
+                locality=locality,
+                city=city,
+                mobile=mobile,
+                zipcode=zipcode,
+                state=state,
+            )
+            newUser.save()
+            messages.success(request, "Congratulations! Profile updated.")
+        else:
+            messages.warning(request, "Invalid input data")
+
+        return render(request, "core/profile.html", locals())

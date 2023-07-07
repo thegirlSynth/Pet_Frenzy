@@ -39,6 +39,31 @@ class UserRegistrationForm(UserCreationForm):
         fields = ["username", "email", "password1", "password2"]
 
 
+class PasswordChangeForm(PasswordChangeForm):
+    old_password = forms.CharField(
+        label="Old Password",
+        widget=forms.PasswordInput(
+            attrs={
+                "autofocus": "True",
+                "autocomplete": "cureentpassword",
+                "class": "form-control",
+            }
+        ),
+    )
+    new_password1 = forms.CharField(
+        label="New Password",
+        widget=forms.PasswordInput(
+            attrs={"autocomplete": "cureentpassword", "class": "form-control"}
+        ),
+    )
+    new_password2 = forms.CharField(
+        label=" Confirm Password",
+        widget=forms.PasswordInput(
+            attrs={"autocomplete": "cureentpassword", "class": "form-control"}
+        ),
+    )
+
+
 class PasswordResetForm(PasswordChangeForm):
     pass
 

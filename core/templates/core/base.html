@@ -31,6 +31,7 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    {% if request.user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
                     </li>
@@ -85,6 +86,7 @@
                         <a class="nav-link text-white" href="#">Cart <span class="badge rounded-pill bg-danger bg-gradient">
                             3</span></a>
                     </li>
+                    {% else %}
                     <li class="nav-item mx-2">
                         <a class="nav-link text-white" href="{% url 'login' %}">Login</a>
                     </li>
@@ -92,6 +94,7 @@
                         <a class="nav-link text-white" href="{% url 'signup' %}">Sign Up</a>
                     </li>
                 </ul>
+                {% endif %}
             </div>
         </div>
     </nav>

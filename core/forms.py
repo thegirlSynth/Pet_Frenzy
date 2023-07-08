@@ -4,6 +4,8 @@ from django.contrib.auth.forms import (
     AuthenticationForm,
     UsernameField,
     PasswordChangeForm,
+    SetPasswordForm,
+    PasswordResetForm,
 )
 from django.contrib.auth.models import User
 from .models import PetUser
@@ -45,7 +47,7 @@ class PasswordChangeForm(PasswordChangeForm):
         widget=forms.PasswordInput(
             attrs={
                 "autofocus": "True",
-                "autocomplete": "cureentpassword",
+                "autocomplete": "current-password",
                 "class": "form-control",
             }
         ),
@@ -53,19 +55,34 @@ class PasswordChangeForm(PasswordChangeForm):
     new_password1 = forms.CharField(
         label="New Password",
         widget=forms.PasswordInput(
-            attrs={"autocomplete": "cureentpassword", "class": "form-control"}
+            attrs={"autocomplete": "current-password", "class": "form-control"}
         ),
     )
     new_password2 = forms.CharField(
         label=" Confirm Password",
         widget=forms.PasswordInput(
-            attrs={"autocomplete": "cureentpassword", "class": "form-control"}
+            attrs={"autocomplete": "current-password", "class": "form-control"}
         ),
     )
 
 
-class PasswordResetForm(PasswordChangeForm):
-    pass
+class UserPasswordResetForm(PasswordResetForm):
+    email = forms.EmailField(widget=forms.EmailInput(attrs={"class": "form-control"}))
+
+
+class UserSetPasswordForm(SetPasswordForm):
+    new_password1 = forms.CharField(
+        label="New Password",
+        widget=forms.PasswordInput(
+            attrs={"autocomplete": "current-password", "class": "form-control"}
+        ),
+    )
+    new_password2 = forms.CharField(
+        label=" Confirm New Password",
+        widget=forms.PasswordInput(
+            attrs={"autocomplete": "current-password", "class": "form-control"}
+        ),
+    )
 
 
 class UserProfileForm(forms.ModelForm):

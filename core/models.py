@@ -64,3 +64,17 @@ class PetUser(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Cart(models.Model):
+    """
+    Default class for User carts
+    """
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    pet = models.ForeignKey(Pet, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+
+    @property
+    def total_cost(self):
+        return self.quantity * self.pet.price

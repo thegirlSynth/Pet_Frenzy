@@ -1,7 +1,7 @@
 from django.db.models import Count
 from django.shortcuts import render, redirect
 from django.views import View
-from .models import Pet, PetUser
+from .models import Pet, PetUser, Cart
 from .forms import UserRegistrationForm, UserProfileForm
 from django.contrib import messages
 
@@ -139,3 +139,22 @@ class UpdateAddress(View):
             messages.warning(request, "Invalid input data")
 
         return redirect("address")
+
+
+def addtocart_view(request):
+    user = request.user
+    pet_id = request.GET.get("pet_id").replace("/", "")
+    pet = Pet.objects.get(id=pet_id)
+    Cart(user=user, pet=pet).save()
+    return redirect("/cart")
+
+
+def showcart_view(request):
+    user = request.user
+    cart = Cart.objects.filter(user=user)
+    amount = 0
+    for pt in cart:
+        value = pt.quantity * pt.pet.price
+        amount = amount + value
+    totalamount = amount + 40
+    return render(request, "core/addtocart.html", locals())

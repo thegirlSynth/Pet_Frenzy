@@ -11,6 +11,8 @@ from .views import (
     UserRegistrationView,
     ProfileView,
     UpdateAddress,
+    addtocart_view,
+    showcart_view,
 )
 from django.conf import settings
 from django.conf.urls.static import static
@@ -36,6 +38,9 @@ urlpatterns = [
     path("profile/", ProfileView.as_view(), name="profile"),
     path("address/", address_view, name="address"),
     path("update-address/<int:pk>", UpdateAddress.as_view(), name="update-address"),
+    path("add-to-cart/", addtocart_view, name="add-to-cart"),
+    path("cart/", showcart_view, name="show-cart"),
+    path("checkout", showcart_view, name="checkout"),
     #
     # login authentication
     #

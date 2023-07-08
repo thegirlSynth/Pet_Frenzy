@@ -13,6 +13,9 @@ from .views import (
     UpdateAddress,
     addtocart_view,
     showcart_view,
+    pluscart_view,
+    minuscart_view,
+    removecart_view,
 )
 from django.conf import settings
 from django.conf.urls.static import static
@@ -41,6 +44,9 @@ urlpatterns = [
     path("add-to-cart/", addtocart_view, name="add-to-cart"),
     path("cart/", showcart_view, name="show-cart"),
     path("checkout", showcart_view, name="checkout"),
+    path("pluscart", pluscart_view),
+    path("minuscart", minuscart_view),
+    path("removecart", removecart_view),
     #
     # login authentication
     #

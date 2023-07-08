@@ -1,6 +1,7 @@
-from django.db.models import Count
+from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.views import View
+from django.http import JsonResponse
 from .models import Pet, PetUser, Cart
 from .forms import UserRegistrationForm, UserProfileForm
 from django.contrib import messages
@@ -158,3 +159,53 @@ def showcart_view(request):
         amount = amount + value
     totalamount = amount + 40
     return render(request, "core/addtocart.html", locals())
+
+
+def pluscart_view(request):
+    if request.method == "GET":
+        pet_id = request.GET["pet_id"]
+        cd = Cart.objects.get(Q(pet=pet_id) & Q(user=request.user))
+        cd.quantity += 1
+        cd.save()
+        user = request.user
+        cart = Cart.objects.filter(user=user)
+        amount = 0
+        for p in cart:
+            value = p.quantity * p.pet.price
+            amount = amount + value
+        totalamount = amount + 40
+        data = {"quantity": cd.quantity, "amount": amount, "totalamount": totalamount}
+        return JsonResponse(data)
+
+
+def minuscart_view(request):
+    if request.method == "GET":
+        pet_id = request.GET["pet_id"]
+        cd = Cart.objects.get(Q(pet=pet_id) & Q(user=request.user))
+        cd.quantity -= 1
+        cd.save()
+        user = request.user
+        cart = Cart.objects.filter(user=user)
+        amount = 0
+        for p in cart:
+            value = p.quantity * p.pet.price
+            amount = amount + value
+        totalamount = amount + 40
+        data = {"quantity": cd.quantity, "amount": amount, "totalamount": totalamount}
+        return JsonResponse(data)
+
+
+def removecart_view(request):
+    if request.method == "GET":
+        pet_id = request.GET["pet_id"]
+        cd = Cart.objects.get(Q(pet=pet_id) & Q(user=request.user))
+        cd.delete()
+        user = request.user
+        cart = Cart.objects.filter(user=user)
+        amount = 0
+        for p in cart:
+            value = p.quantity * p.pet.price
+            amount = amount + value
+        totalamount = amount + 40
+        data = {"amount": amount, "totalamount": totalamount}
+        return JsonResponse(data)

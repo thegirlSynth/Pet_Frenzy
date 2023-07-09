@@ -209,3 +209,17 @@ def removecart_view(request):
         totalamount = amount + 40
         data = {"amount": amount, "totalamount": totalamount}
         return JsonResponse(data)
+
+
+class checkout_view(View):
+    def get(self, request):
+        user = request.user
+        address = PetUser.objects.filter(user=request.user)
+        cart_items = Cart.objects.filter(user=user)
+        amount = 0
+        for p in cart_items:
+            value = p.quantity * p.pet.price
+            amount = amount + value
+        totalamount = amount + 40
+
+        return render(request, "core/checkout.html", locals())

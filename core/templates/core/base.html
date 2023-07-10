@@ -83,7 +83,7 @@
                         </ul>
                     </li>
                     <li class="nav-item mx-2">
-                        <a class="nav-link text-white" href="#">Cart <span class="badge rounded-pill bg-danger bg-gradient">
+                        <a class="nav-link text-white" href="{% url 'show-cart' %}">Cart <span class="badge rounded-pill bg-danger bg-gradient">
                             3</span></a>
                     </li>
                     {% else %}
@@ -116,6 +116,7 @@
         crossorigin="anonymous"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script src="https://js.paystack.co/v1/inline.js"></script>
 
     <script src="{% static 'core/js/owl.carousel.min.js' %}"></script>
     <script src="{% static 'core/js/all.min.js' %}"></script>

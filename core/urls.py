@@ -1,23 +1,5 @@
 from django.urls import path
-from .views import (
-    homepage_view,
-    aboutpage_view,
-    contactpage_view,
-    address_view,
-    CategoryView,
-    CategoryName,
-    PetDetails,
-    BreedView,
-    UserRegistrationView,
-    ProfileView,
-    UpdateAddress,
-    addtocart_view,
-    showcart_view,
-    pluscart_view,
-    minuscart_view,
-    removecart_view,
-    checkout_view,
-)
+from . import views as myviews
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_view
@@ -30,24 +12,36 @@ from .forms import (
 
 
 urlpatterns = [
-    path("", homepage_view, name="home"),
-    path("about/", aboutpage_view, name="about"),
-    path("contact/", contactpage_view, name="contact"),
-    path("category/<slug:value>", CategoryView.as_view(), name="category"),
-    path("category-name/<value>", CategoryName.as_view(), name="category-name"),
+    path("", myviews.homepage_view, name="home"),
+    path("about/", myviews.aboutpage_view, name="about"),
+    path("contact/", myviews.contactpage_view, name="contact"),
+    path("category/<slug:value>", myviews.CategoryView.as_view(), name="category"),
+    path("category-name/<value>", myviews.CategoryName.as_view(), name="category-name"),
     path(
-        "category-breed/<category>/<value>", BreedView.as_view(), name="category-breed"
+        "category-breed/<category>/<value>",
+        myviews.BreedView.as_view(),
+        name="category-breed",
     ),
-    path("pet-details/<int:num>", PetDetails.as_view(), name="pet-details"),
-    path("profile/", ProfileView.as_view(), name="profile"),
-    path("address/", address_view, name="address"),
-    path("update-address/<int:pk>", UpdateAddress.as_view(), name="update-address"),
-    path("add-to-cart/", addtocart_view, name="add-to-cart"),
-    path("cart/", showcart_view, name="show-cart"),
-    path("checkout", checkout_view.as_view(), name="checkout"),
-    path("pluscart", pluscart_view),
-    path("minuscart", minuscart_view),
-    path("removecart", removecart_view),
+    path("pet-details/<int:num>", myviews.PetDetails.as_view(), name="pet-details"),
+    path("profile/", myviews.ProfileView.as_view(), name="profile"),
+    path("address/", myviews.address_view, name="address"),
+    path(
+        "update-address/<int:pk>",
+        myviews.UpdateAddress.as_view(),
+        name="update-address",
+    ),
+    path("add-to-cart/", myviews.addtocart_view, name="add-to-cart"),
+    path("cart/", myviews.showcart_view, name="show-cart"),
+    path("checkout", myviews.checkout_view.as_view(), name="checkout"),
+    path("pluscart", myviews.pluscart_view),
+    path("minuscart", myviews.minuscart_view),
+    path("removecart", myviews.removecart_view),
+    path("initiate_payment", myviews.checkout_view.as_view(), name="initiate_payment"),
+    path(
+        "verify-payment/<str:ref>/<int:uid>/",
+        myviews.verify_payment,
+        name="verify_payment",
+    ),
     #
     # login authentication
     #
@@ -58,7 +52,7 @@ urlpatterns = [
         ),
         name="login",
     ),
-    path("signup/", UserRegistrationView.as_view(), name="signup"),
+    path("signup/", myviews.UserRegistrationView.as_view(), name="signup"),
     path(
         "password-change/",
         auth_view.PasswordChangeView.as_view(

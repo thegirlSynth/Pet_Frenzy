@@ -1,6 +1,6 @@
 {% extends 'core/base.html' %}
 {% load static %}
-{% block title %} Cart {% endblock title %}
+{% block title %} Checkout{% endblock title %}
 
 {% block main-content %}
     {% if messages %}
@@ -18,11 +18,11 @@
                     <div class="card-body">
                         <h5>Product: {{item.pet.name}} </h5>
                         <p>Quantity: {{item.quantity}} </p>
-                        <p class="fw-bold">Price: ${{item.pet.price}} </p>
+                        <p class="fw-bold">Price: NGN. {{item.pet.price}} </p>
                     </div>
                 </div>
             {% endfor %}
-            <p class="fw-bold">Total Cost + $15 = ${{totalamount}}</p>
+            <p class="fw-bold">Total Cost + NGN. 15000.00 = NGN. {{totalamount}}</p>
             <small>Terms and Conditions: You agree that you have provided your correct details, as seen on your verified IDs, and that the purchase or adoption of these pets are not for ulterior purposes. Any suspicion of illegal behaviour will be lead to account closure and law implications.</small>
         </div>
         <div class="col-sm-4 offset-sm-1">
@@ -48,10 +48,68 @@
                     <input type="number" class="form-control" name="totalamount" value={{totalamount}} readonly>
                 </div>
                 <div class="text-end">
-                    <button type="submit" class="btn btn-warning mt-3 px-5 fw-bold">Continue</button>
-                    {% comment %}<button id="rzp-button1" type="submit" class="btn btn-warning mt-3 px-5 fw-bold">Payment</button>{% endcomment %}
+                    {% comment %} <button type="button" class="btn btn-warning mt-3 px-5 fw-bold" onclick="payWithPaystack()">Continue</button> {% endcomment %}
+                    <button  type="button" class="btn btn-warning mt-3 px-5 fw-bold" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Make Payment</button>
                 </div>
             </form>
         </div>
     </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Confirm Email Address:</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="johndoe" aria-label="Username">
+                <span class="input-group-text">@</span>
+                <input type="text" class="form-control" placeholder="gmail.com" aria-label="Server">
+              </div>
+
+            <div class="d-grid gap-2 col-6 mx-auto">
+                <button id="pay-button1" type="button" class="btn btn-success btn-lg" onclick="payWithPaystack()" data-bs-dismiss="modal">Proceed</button>
+            </div>
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<script>
+	function payWithPaystack() {
+        var form = document.getElementById("myform");
+        var userid = form.elements["userid"].value;
+		let currency = "NGN";
+		let plan = "";
+		let ref = "{{ payment.ref }}";
+		let amount = "{{ payment.amount }}";
+		let obj = {
+			key: "{{ paystack_pub_key }}",
+			email: "{{ payment.email }}",
+			amount: "{{ amount_value }}",
+			ref: ref,
+			callback: function (response) {
+				var url = "/verify-payment/" + ref + "/" + userid + "/";
+                window.location.href = url;
+			},
+		};
+		if (Boolean(currency)) {
+			obj.currency = currency.toUpperCase();
+		}
+		if (Boolean(plan)) {
+			obj.plan - plan;
+		}
+
+		var handler = PaystackPop.setup(obj);
+		handler.openIframe();
+	}
+</script>
+
+
 {% endblock main-content %}

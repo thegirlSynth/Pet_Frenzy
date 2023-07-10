@@ -2,9 +2,11 @@ from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.views import View
 from django.http import JsonResponse
-from .models import Pet, PetUser, Cart
-from .forms import UserRegistrationForm, UserProfileForm
+from .models import Pet, PetUser, Cart, Payment, OrderPlaced
+from .forms import UserRegistrationForm, UserProfileForm, UserPasswordResetForm
 from django.contrib import messages
+from django.conf import settings
+from django.forms.models import model_to_dict
 
 
 # Create your views here.
@@ -157,7 +159,7 @@ def showcart_view(request):
     for pt in cart:
         value = pt.quantity * pt.pet.price
         amount = amount + value
-    totalamount = amount + 40
+    totalamount = amount + 15000
     return render(request, "core/addtocart.html", locals())
 
 
@@ -173,7 +175,7 @@ def pluscart_view(request):
         for p in cart:
             value = p.quantity * p.pet.price
             amount = amount + value
-        totalamount = amount + 40
+        totalamount = amount + 15000
         data = {"quantity": cd.quantity, "amount": amount, "totalamount": totalamount}
         return JsonResponse(data)
 
@@ -190,7 +192,7 @@ def minuscart_view(request):
         for p in cart:
             value = p.quantity * p.pet.price
             amount = amount + value
-        totalamount = amount + 40
+        totalamount = amount + 15000
         data = {"quantity": cd.quantity, "amount": amount, "totalamount": totalamount}
         return JsonResponse(data)
 
@@ -206,7 +208,7 @@ def removecart_view(request):
         for p in cart:
             value = p.quantity * p.pet.price
             amount = amount + value
-        totalamount = amount + 40
+        totalamount = amount + 15000
         data = {"amount": amount, "totalamount": totalamount}
         return JsonResponse(data)
 
@@ -214,12 +216,45 @@ def removecart_view(request):
 class checkout_view(View):
     def get(self, request):
         user = request.user
-        address = PetUser.objects.filter(user=request.user)
+        address = PetUser.objects.filter(user=user)
+        uid = address
         cart_items = Cart.objects.filter(user=user)
         amount = 0
         for p in cart_items:
             value = p.quantity * p.pet.price
             amount = amount + value
-        totalamount = amount + 40
+        totalamount = amount + 15000
+
+        email = user.email
+        paystack_pub_key = settings.PAYSTACK_PUBLIC_KEY
+
+        new_pay = Payment.objects.create(amount=totalamount, email=email, user=user)
+        new_pay.save()
+
+        payment = model_to_dict(new_pay)
+        amount_value = new_pay.amount_value()
 
         return render(request, "core/checkout.html", locals())
+
+
+def verify_payment(request, ref, uid):
+    payment = Payment.objects.get(ref=ref)
+    verified = payment.verify_payment()
+
+    if verified:
+        payment.verified = True
+
+        petuser = PetUser.objects.get(id=uid)
+        cart = Cart.objects.filter(user=request.user)
+        for c in cart:
+            OrderPlaced(
+                user=request.user,
+                petuser=petuser,
+                pet=c.pet,
+                quantity=c.quantity,
+                payment=payment,
+            ).save()
+            c.delete()
+
+        return redirect("home")
+    return render(request, "core/pending.html")

@@ -58,3 +58,33 @@ $(".remove-cart").click(function () {
         },
     })
 })
+
+$(".plus-wishlist").click(function () {
+    var id = $(this).attr("pid").toString();
+    var pt = this;
+    $.ajax({
+        type: "GET",
+        url: "/pluswishlist",
+        data: {
+            pet_id: id
+        },
+        success: function (data) {
+            window.location.href = "http://localhost:8000/pet-details/" + id
+        },
+    })
+})
+
+$(".minus-wishlist").click(function () {
+    var id = $(this).attr("pid").toString();
+    var pt = this;
+    $.ajax({
+        type: "GET",
+        url: "/minuswishlist",
+        data: {
+            pet_id: id
+        },
+        success: function (data) {
+            window.location.href = "http://localhost:8000/pet-details/" + id
+        },
+    })
+})

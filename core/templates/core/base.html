@@ -64,8 +64,8 @@
                         <a class="nav-link active" href="{% url 'contact' %}">Contact Us</a>
                     </li>
                 </ul>
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search for a pet here!"
+                <form class="d-flex" role="search" action="/search">
+                    <input class="form-control me-2" name="search" type="search" placeholder="Search for a pet here!"
                         aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
@@ -97,7 +97,7 @@
                         </li>
                     {% endif %}
                     <li class="nav-item mx-2">
-                        <a class="nav-link text-white" href="{% url 'show-cart' %}">Wishlist <span class="badge rounded-pill bg-danger">{% if totalitem > 0 %}{{totalitem}}{% endif %}</span></a>
+                        <a class="nav-link text-white" href="{% url 'wishlist' %}"><i class="fa fa-heart"></i> <span class="badge rounded-pill bg-danger">{% if wishitem > 0 %}{{wishitem}}{% endif %}</span></a>
                     </li>
                 </ul>
             </div>

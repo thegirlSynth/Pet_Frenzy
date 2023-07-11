@@ -150,3 +150,8 @@ class OrderPlaced(models.Model):
     @property
     def total_cost(self):
         return self.quantity * self.pet.price
+
+
+class WishList(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    pet = models.ForeignKey(Pet, on_delete=models.CASCADE)

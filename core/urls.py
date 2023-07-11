@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views as myviews
+from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_view
@@ -17,6 +18,7 @@ urlpatterns = [
     path("contact/", myviews.contactpage_view, name="contact"),
     path("category/<slug:value>", myviews.CategoryView.as_view(), name="category"),
     path("pets/", myviews.CategoryName.as_view(), name="pets"),
+    path("search", myviews.search, name="search"),
     path(
         "category-breed/<category>/<value>",
         myviews.BreedView.as_view(),
@@ -32,6 +34,7 @@ urlpatterns = [
     ),
     path("add-to-cart/", myviews.addtocart_view, name="add-to-cart"),
     path("cart/", myviews.showcart_view, name="show-cart"),
+    path("wishlist/", myviews.wishlist, name="wishlist"),
     path("checkout", myviews.checkout_view.as_view(), name="checkout"),
     path("pluscart", myviews.pluscart_view),
     path("minuscart", myviews.minuscart_view),
@@ -43,6 +46,8 @@ urlpatterns = [
         name="verify_payment",
     ),
     path("orders", myviews.orders, name="orders"),
+    path("pluswishlist", myviews.plus_wishlist),
+    path("minuswishlist", myviews.minus_wishlist),
     #
     # login authentication
     #
@@ -105,3 +110,7 @@ urlpatterns = [
         name="password_reset_complete",
     ),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+admin.site.site_header = "Pet Frenzy"
+admin.site.site_title = "Pet Frenzy"
+admin.site.site_index_title = "Welcome to Pet Frenzy"

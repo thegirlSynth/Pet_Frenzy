@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Pet, PetUser, Cart, Payment, OrderPlaced
+from .models import Pet, PetUser, Cart, Payment, OrderPlaced, WishList
 
 # Register your models here.
 
@@ -36,3 +36,8 @@ class OrderPlacedModelAdmin(admin.ModelAdmin):
         "status",
         "payment",
     ]
+
+
+@admin.register(WishList)
+class WishListModelAdmin(admin.ModelAdmin):
+    list_display = ["id", "user", "pet"]

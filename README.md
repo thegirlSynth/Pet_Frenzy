@@ -26,46 +26,51 @@ Pet Frenzy is a web application that allows users to buy, sell, adopt, and donat
 ### Prerequisites
 
 - Python 3.x
-- Django (installation: `pip install django`)
+- Django 4.x (installation: `pip install django`)
+- Other requirements are found in the [requirements.txt](requirements.txt) file.
 
 ### Installation
 1. Clone the repository:
 
-```
-git clone https://github.com/thegirlSynth/Pet-Frenzy.git
-```
+   ```
+   git clone https://github.com/thegirlSynth/Pet-Frenzy.git
+   ```
 
 2. Create and activate a virtual environment (optional but recommended):
 
-```
-python3 -m venv env
-source env/bin/activate
-```
+   ```
+   python3 -m venv env
+   source env/bin/activate
+   ```
 
 3. Install the project dependencies:
 
-```pip install -r requirements.txt```
+   ```
+   pip install -r requirements.txt
+   ```
 
-4. Set up the database:
+5. Set up the database:
 
-  * Create a database for the project.
-  * Update the database configuration in settings.py to connect to your MySQL database.
+    * Create a database for the project.
+    * Update the database configuration in settings.py to connect to your MySQL database.
 
-5. Apply database migrations:
+6. Apply database migrations:
 
-```python manage.py migrate```
+   ```
+   python manage.py migrate
+   ```
 
-6. Start the development server:
+7. Start the development server:
 
-```
-python manage.py runserver
-```
+   ```
+   python manage.py runserver
+   ```
 
-7.Access the application at http://localhost:8000 in your web browser.
+8. Access the application at http://localhost:8000 in your web browser.
 
 
-License
+## License
 This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
 
-Contact
+## Contact
 For any inquiries or support, please contact me at cynthianuchepro@gmail.com.

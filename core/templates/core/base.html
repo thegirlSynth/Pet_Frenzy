@@ -31,7 +31,7 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    {% if request.user.is_authenticated %}
+
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
                     </li>
@@ -70,31 +70,36 @@
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item dropdown mx-2">
-                        <a class="nav-link text-white dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Synth
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
-                            <li><a class="dropdown-item" href="#">Orders</a></li>
-                            <li><a class="dropdown-item" href="{% url 'password-change' %}">Change Password</a></li>
-                            <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
-                        </ul>
-                    </li>
+                    {% if request.user.is_authenticated %}
+                        <li class="nav-item dropdown mx-2">
+                            <a class="nav-link text-white dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Synth
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
+                                <li><a class="dropdown-item" href="{% url 'orders' %}">Orders</a></li>
+                                <li><a class="dropdown-item" href="{% url 'password-change' %}">Change Password</a></li>
+                                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item mx-2">
+                            <a class="nav-link text-white" href="{% url 'show-cart' %}">Cart <span class="badge rounded-pill bg-danger">{% if totalitem > 0 %}{{totalitem}}{% endif %}</span></a>
+                        </li>
+
+                        {% else %}
+
+                        <li class="nav-item mx-2">
+                            <a class="nav-link text-white" href="{% url 'login' %}">Login</a>
+                        </li>
+                        <li class="nav-item mx-2">
+                            <a class="nav-link text-white" href="{% url 'signup' %}">Sign Up</a>
+                        </li>
+                    {% endif %}
                     <li class="nav-item mx-2">
-                        <a class="nav-link text-white" href="{% url 'show-cart' %}">Cart <span class="badge rounded-pill bg-danger bg-gradient">
-                            3</span></a>
-                    </li>
-                    {% else %}
-                    <li class="nav-item mx-2">
-                        <a class="nav-link text-white" href="{% url 'login' %}">Login</a>
-                    </li>
-                    <li class="nav-item mx-2">
-                        <a class="nav-link text-white" href="{% url 'signup' %}">Sign Up</a>
+                        <a class="nav-link text-white" href="{% url 'show-cart' %}">Wishlist <span class="badge rounded-pill bg-danger">{% if totalitem > 0 %}{{totalitem}}{% endif %}</span></a>
                     </li>
                 </ul>
-                {% endif %}
             </div>
         </div>
     </nav>

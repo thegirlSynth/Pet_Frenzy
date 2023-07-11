@@ -16,7 +16,7 @@ urlpatterns = [
     path("about/", myviews.aboutpage_view, name="about"),
     path("contact/", myviews.contactpage_view, name="contact"),
     path("category/<slug:value>", myviews.CategoryView.as_view(), name="category"),
-    path("category-name/<value>", myviews.CategoryName.as_view(), name="category-name"),
+    path("pets/", myviews.CategoryName.as_view(), name="pets"),
     path(
         "category-breed/<category>/<value>",
         myviews.BreedView.as_view(),
@@ -42,6 +42,7 @@ urlpatterns = [
         myviews.verify_payment,
         name="verify_payment",
     ),
+    path("orders", myviews.orders, name="orders"),
     #
     # login authentication
     #

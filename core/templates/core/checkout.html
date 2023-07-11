@@ -22,7 +22,7 @@
                     </div>
                 </div>
             {% endfor %}
-            <p class="fw-bold">Total Cost + NGN. 15000.00 = NGN. {{totalamount}}</p>
+            <p class="fw-bold">Total Cost + NGN. 2500.00 = NGN. {{totalamount}}</p>
             <small>Terms and Conditions: You agree that you have provided your correct details, as seen on your verified IDs, and that the purchase or adoption of these pets are not for ulterior purposes. Any suspicion of illegal behaviour will be lead to account closure and law implications.</small>
         </div>
         <div class="col-sm-4 offset-sm-1">
@@ -48,7 +48,6 @@
                     <input type="number" class="form-control" name="totalamount" value={{totalamount}} readonly>
                 </div>
                 <div class="text-end">
-                    {% comment %} <button type="button" class="btn btn-warning mt-3 px-5 fw-bold" onclick="payWithPaystack()">Continue</button> {% endcomment %}
                     <button  type="button" class="btn btn-warning mt-3 px-5 fw-bold" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Make Payment</button>
                 </div>
             </form>

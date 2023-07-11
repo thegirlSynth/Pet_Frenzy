@@ -21,14 +21,20 @@ def aboutpage_view(request):
     """
     Returns the about page of the website.
     """
-    return render(request, "core/about.html")
+    totalitem = 0
+    if request.user.is_authenticated:
+        totalitem = len(Cart.objects.filter(user=request.user))
+    return render(request, "core/about.html", locals())
 
 
 def contactpage_view(request):
     """
     Returns the about page of the website.
     """
-    return render(request, "core/contact.html")
+    totalitem = 0
+    if request.user.is_authenticated:
+        totalitem = len(Cart.objects.filter(user=request.user))
+    return render(request, "core/contact.html", locals())
 
 
 class CategoryView(View):
@@ -41,6 +47,11 @@ class CategoryView(View):
         names = Pet.objects.filter(category=value).values("name")
         breeds = pets.values_list("breed", flat=True).distinct()
         category = value
+
+        totalitem = 0
+        if request.user.is_authenticated:
+            totalitem = len(Cart.objects.filter(user=request.user))
+
         return render(request, "core/category.html", locals())
 
 
@@ -50,6 +61,11 @@ class BreedView(View):
         names = Pet.objects.filter(breed=value, category=category).values("name")
         breeds = Pet.objects.values_list("breed", flat=True).distinct()
         category = category
+
+        totalitem = 0
+        if request.user.is_authenticated:
+            totalitem = len(Cart.objects.filter(user=request.user))
+
         return render(request, "core/breed.html", locals())
 
 
@@ -57,12 +73,22 @@ class CategoryName(View):
     def get(self, request, value):
         pets = Pet.objects.filter(name=value)
         names = Pet.objects.filter(category=pets[0].category).values("name")
+
+        totalitem = 0
+        if request.user.is_authenticated:
+            totalitem = len(Cart.objects.filter(user=request.user))
+
         return render(request, "core/category.html", locals())
 
 
 class PetDetails(View):
     def get(self, request, num):
         pet = Pet.objects.get(pk=num)
+
+        totalitem = 0
+        if request.user.is_authenticated:
+            totalitem = len(Cart.objects.filter(user=request.user))
+
         return render(request, "core/details.html", locals())
 
 
@@ -84,6 +110,9 @@ class UserRegistrationView(View):
 class ProfileView(View):
     def get(self, request):
         form = UserProfileForm()
+        totalitem = 0
+        if request.user.is_authenticated:
+            totalitem = len(Cart.objects.filter(user=request.user))
         return render(request, "core/profile.html", locals())
 
     def post(self, request):
@@ -116,6 +145,9 @@ class ProfileView(View):
 
 def address_view(request):
     address = PetUser.objects.filter(user=request.user)
+    totalitem = 0
+    if request.user.is_authenticated:
+        totalitem = len(Cart.objects.filter(user=request.user))
     return render(request, "core/address.html", locals())
 
 
@@ -123,6 +155,11 @@ class UpdateAddress(View):
     def get(self, request, pk):
         add = PetUser.objects.get(pk=pk)
         form = UserProfileForm(instance=add)
+
+        totalitem = 0
+        if request.user.is_authenticated:
+            totalitem = len(Cart.objects.filter(user=request.user))
+
         return render(request, "core/updateaddress.html", locals())
 
     def post(self, request, pk):
@@ -159,7 +196,12 @@ def showcart_view(request):
     for pt in cart:
         value = pt.quantity * pt.pet.price
         amount = amount + value
-    totalamount = amount + 15000
+    totalamount = amount + 2500
+
+    totalitem = 0
+    if request.user.is_authenticated:
+        totalitem = len(Cart.objects.filter(user=request.user))
+
     return render(request, "core/addtocart.html", locals())
 
 
@@ -175,7 +217,7 @@ def pluscart_view(request):
         for p in cart:
             value = p.quantity * p.pet.price
             amount = amount + value
-        totalamount = amount + 15000
+        totalamount = amount + 2500
         data = {"quantity": cd.quantity, "amount": amount, "totalamount": totalamount}
         return JsonResponse(data)
 
@@ -192,7 +234,7 @@ def minuscart_view(request):
         for p in cart:
             value = p.quantity * p.pet.price
             amount = amount + value
-        totalamount = amount + 15000
+        totalamount = amount + 2500
         data = {"quantity": cd.quantity, "amount": amount, "totalamount": totalamount}
         return JsonResponse(data)
 
@@ -208,9 +250,19 @@ def removecart_view(request):
         for p in cart:
             value = p.quantity * p.pet.price
             amount = amount + value
-        totalamount = amount + 15000
+        totalamount = amount + 2500
         data = {"amount": amount, "totalamount": totalamount}
         return JsonResponse(data)
+
+
+def orders(request):
+    order_placed = OrderPlaced.objects.filter(user=request.user)
+
+    totalitem = 0
+    if request.user.is_authenticated:
+        totalitem = len(Cart.objects.filter(user=request.user))
+
+    return render(request, "core/orders.html", locals())
 
 
 class checkout_view(View):
@@ -223,7 +275,7 @@ class checkout_view(View):
         for p in cart_items:
             value = p.quantity * p.pet.price
             amount = amount + value
-        totalamount = amount + 15000
+        totalamount = amount + 2500
 
         email = user.email
         paystack_pub_key = settings.PAYSTACK_PUBLIC_KEY

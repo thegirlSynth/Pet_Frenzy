@@ -20,12 +20,6 @@
                                     <div>
                                         <h5>{{item.pet.name}}</h5>
                                         <p class="mb-2 text-muted small">{{item.pet.description}}</p>
-                                        <div class="my-3">
-                                            <label for="quantity">Quantity:</label>
-                                            <a class="minus-cart btn" pid={{item.pet.id}}><i class="fas fa-minus-square fa-lg"></i></a>
-                                            <span id="quantity">{{item.quantity}}</span>
-                                            <a class="plus-cart btn" pid={{item.pet.id}}><i class="fas fa-plus-square fa-lg"></i></a>
-                                        </div>
                                         <div class="d-flex justify-content-between">
                                             <a href="" class="remove-cart btn btn-small btn-secondary mr-3" pid={{item.pet.id}}>Remove Pet</a>
                                             <p class="mb-0"><span><strong>NGN. {{item.pet.price}}</strong></span></p>

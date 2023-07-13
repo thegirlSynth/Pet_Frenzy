@@ -70,10 +70,12 @@ class CategoryView(View):
 
 class BreedView(View):
     def get(self, request, category, value):
-        pets = Pet.objects.filter(breed=value)
-        names = Pet.objects.filter(breed=value, category=category).values("name")
-        breeds = Pet.objects.values_list("breed", flat=True).distinct()
-        category = category
+        pets = Pet.objects.filter(breed=value, category=category)
+        breeds = (
+            Pet.objects.filter(category=category)
+            .values_list("breed", flat=True)
+            .distinct()
+        )
 
         totalitem = 0
         wishitem = 0
@@ -214,7 +216,9 @@ def addtocart_view(request):
     user = request.user
     pet_id = request.GET.get("pet_id").replace("/", "")
     pet = Pet.objects.get(id=pet_id)
-    Cart(user=user, pet=pet).save()
+    cart = Cart.objects.filter(user=user, pet=pet)
+    if not cart:
+        Cart(user=user, pet=pet).save()
     return redirect("/cart")
 
 
@@ -249,42 +253,6 @@ def wishlist(request):
         wishitem = len(WishList.objects.filter(user=request.user))
 
     return render(request, "core/wishlist.html", locals())
-
-
-@login_required
-def pluscart_view(request):
-    if request.method == "GET":
-        pet_id = request.GET["pet_id"]
-        cd = Cart.objects.get(Q(pet=pet_id) & Q(user=request.user))
-        cd.quantity += 1
-        cd.save()
-        user = request.user
-        cart = Cart.objects.filter(user=user)
-        amount = 0
-        for p in cart:
-            value = p.quantity * p.pet.price
-            amount = amount + value
-        totalamount = amount + 2500
-        data = {"quantity": cd.quantity, "amount": amount, "totalamount": totalamount}
-        return JsonResponse(data)
-
-
-@login_required
-def minuscart_view(request):
-    if request.method == "GET":
-        pet_id = request.GET["pet_id"]
-        cd = Cart.objects.get(Q(pet=pet_id) & Q(user=request.user))
-        cd.quantity -= 1
-        cd.save()
-        user = request.user
-        cart = Cart.objects.filter(user=user)
-        amount = 0
-        for p in cart:
-            value = p.quantity * p.pet.price
-            amount = amount + value
-        totalamount = amount + 2500
-        data = {"quantity": cd.quantity, "amount": amount, "totalamount": totalamount}
-        return JsonResponse(data)
 
 
 @login_required

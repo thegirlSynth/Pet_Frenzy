@@ -36,8 +36,6 @@ urlpatterns = [
     path("cart/", myviews.showcart_view, name="show-cart"),
     path("wishlist/", myviews.wishlist, name="wishlist"),
     path("checkout", myviews.checkout_view.as_view(), name="checkout"),
-    path("pluscart", myviews.pluscart_view),
-    path("minuscart", myviews.minuscart_view),
     path("removecart", myviews.removecart_view),
     path("initiate_payment", myviews.checkout_view.as_view(), name="initiate_payment"),
     path(

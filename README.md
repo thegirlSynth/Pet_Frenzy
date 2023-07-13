@@ -1,6 +1,6 @@
 ![Pet Frenzy Logo](./core/static/core/images/banner/Logo.png)
 
-Pet Frenzy is a web application that allows users to buy, sell, adopt, and donate pets. It provides a platform for pet enthusiasts to connect, explore a wide range of furry pets, shop for pet supplies, and stay informed with pet-related content.
+Pet Frenzy is a web application that allows users to buy, sell, adopt, and donate pets. It provides a platform for pet enthusiasts to connect, explore a wide range of furry pets, and stay informed with pet-related content.
 
 ![Pet Frenzy HomePage](./core/static/core/images/banner/snip%202.png)
 

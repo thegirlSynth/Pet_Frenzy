@@ -16,7 +16,9 @@
 
                 <ul class="fs-5" style="font-family:Rajdhani;">
                     <li><h5>Age: {{pet.age_in_weeks}} weeks</h5></li>
+                    <li><h5>Breed: {{pet.breed}}</h5></li>
                     <li>{{pet.description}}</li>
+                    <li><h5 style="color: red">Special feature: {{pet.disclaimer}}Is allergic to mice.</h5></li>
                 </ul>
                 <form action="/add-to-cart" class="d-inline">
                     <input type="hidden" name="pet_id" value={{pet.id}}/>

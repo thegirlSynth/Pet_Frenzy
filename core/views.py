@@ -165,7 +165,7 @@ class ProfileView(View):
         else:
             messages.warning(request, "Invalid input data")
 
-        return render(request, "core/profile.html", locals())
+        return redirect("address")
 
 
 @login_required

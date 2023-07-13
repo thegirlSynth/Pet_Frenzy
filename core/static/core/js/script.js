@@ -31,7 +31,7 @@ $(".plus-wishlist").click(function () {
             pet_id: id
         },
         success: function (data) {
-            window.location.href = "http://localhost:8000/pet-details/" + id
+            window.location.reload()
         },
     })
 })
@@ -47,7 +47,7 @@ $(".minus-wishlist").click(function () {
             pet_id: id
         },
         success: function (data) {
-            window.location.href = "http://localhost:8000/pet-details/" + id
+            window.location.reload()
         },
     })
 })

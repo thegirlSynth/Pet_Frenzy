@@ -7,34 +7,32 @@
 <div class="container my-5">
     <div class="row">
         <h1 class="text-center mb-5">Wishlist</h1>
-        <div class="col-sm-12">
-            <div class="card">
-                <div class="card-body">
-                    {% for pet in pets %}
-                        <div class="row">
-                            <div class="col-sm-3 text-center align-self-center"><a href="{% url 'pet-details' pet.pet.id %}"><img src="{{pet.pet.pet_image.url}}" alt="" srcset="" height="150" width="150" class="img-fluid img-thumbnail shadow-sm"></a></div>
-                            <div class="col-sm-9">
-                                <div>
-                                    <h5>{{pet.pet.name}}</h5>
-                                    <p class="mb-2 text-muted small">{{pet.pet.description}}</p>
+            <div class="container">
+                {% for pet in pets %}
+                    <div class="row">
 
-                                    <div class="d-flex justify-content-between">
-                                        <a href="" class="remove-wishlist btn btn-small btn-secondary mr-3" pid={{pet.pet.id}}>Remove Pet</a>
-                                        <form action="/add-to-cart" class="d-inline">
-                                            <input type="hidden" name="pet_id" value={{pet.pet.id}}/>
-                                            <button type="submit" class="btn btn-primary shadow px-5 py-2"> Add to Cart
-                                            </button>
-                                        </form>
-                                        <p class="mb-0"><span><strong>NGN. {{pet.pet.price}}</strong></span></p>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="col">
+                            <a href="{% url 'pet-details' pet.pet.id %}"><img src="{{pet.pet.pet_image.url}}" alt="" srcset="" height="200" width="200" class="img-fluid img-thumbnail shadow-sm"></a>
+                            <p class="mb-0"><span><strong>NGN. {{pet.pet.price}}</strong></span></p>
                         </div>
-                        <hr class="text-muted">
-                    {% endfor %}
-                </div>
+                        <div class="col-6">
+                            <p class="mb-2 text-muted small">{{pet.pet.description}}</p>
+                        </div>
+
+                        <div class="col-md-auto">
+                            <a pid={{pet.pet.id}} class="minus-wishlist btn btn-danger"><i class="fas fa-lg fa-heart"></i></a>
+                            <form action="/add-to-cart" class="d-inline">
+                                <input type="hidden" name="pet_id" value={{pet.pet.id}}/>
+                                <button type="submit" class="btn btn-primary btn-small shadow"> Add to Cart
+                                </button>
+                            </form>
+                        </div>
+
+                    </div>
+                    <hr class="text-muted">
+                {% endfor %}
+
             </div>
-        </div>
     </div>
     {% else %}
 

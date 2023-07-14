@@ -32,6 +32,7 @@ urlpatterns = [
         myviews.UpdateAddress.as_view(),
         name="update-address",
     ),
+    path("deleteaddress", myviews.deleteaddress_view),
     path("add-to-cart/", myviews.addtocart_view, name="add-to-cart"),
     path("cart/", myviews.showcart_view, name="show-cart"),
     path("wishlist/", myviews.wishlist, name="wishlist"),

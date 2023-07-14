@@ -51,3 +51,19 @@ $(".minus-wishlist").click(function () {
         },
     })
 })
+
+//Delete Address
+$(".delete-address").click(function () {
+    var id = $(this).attr("pid").toString();
+    var pt = this;
+    $.ajax({
+        type: "GET",
+        url: "/deleteaddress",
+        data: {
+            add_id: id
+        },
+        success: function (data) {
+            window.location.reload()
+        },
+    })
+})

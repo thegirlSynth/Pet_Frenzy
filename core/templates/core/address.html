@@ -16,6 +16,7 @@
 
         <div class="col-sm-8 offset-sm-1">
             <div class="row">
+                {% if address %}
                 {% for ad in address %}
                 <div class="col-sm-6">
                     <div class="card m-2">
@@ -27,13 +28,47 @@
                             <p>City: {{ad.city}}</p>
                             <p>State: {{ad.state}}</p>
                             <p>Zip Code: {{ad.zipcode}}</p>
-                            <p class="text-center"><a href="{% url 'update-address' pk=ad.id %}" type="button" class="btn btn-success">Update Address</a></p>
+                            <div class="row">
+                            <p class="text-center col"><a href="{% url 'update-address' pk=ad.id %}" type="button" class="btn btn-success">Update Address</a></p>
+                            <p class="text-center col"><a type="button" pid={{ad.id}} class="btn btn-danger delete-address">Delete Address</a></p>
+                            <!--<p class="text-center col"><a type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Delete Address</a></p>-->
+                            </div>
                         </div>
                     </div>
                 </div>
                 {% endfor %}
+                {% else %}
+                <h3> You haven't added any adresses yet!
+                {% endif %}
             </div>
         </div>
     </div>
 </div>
+
+ <!-- Confirm Delete Address Modal
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title fs-5 text-muted" id="staticBackdropLabel">Confirm delete address</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body d-flex flex-column align-items-center">
+                <h5>Do you really want to delete that address?</h5>
+                <div class="d-flex justify-content-center gy-3">
+
+                    <div class="col-md-auto">
+                        <button pid={{ad.id}} type="button" class="btn btn-danger delete-address" data-bs-dismiss="modal">Proceed</button>
+                    </div>
+                    <div class="col-3"></div>
+                    <div class="col-md-auto">
+                        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Back</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+      </div>
+    </div>
+</div> -->
 {% endblock main-content %}

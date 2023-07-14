@@ -217,6 +217,17 @@ class UpdateAddress(View):
 
 
 @login_required
+def deleteaddress_view(request):
+    add_id = request.GET["add_id"]
+    add = PetUser.objects.get(Q(id=add_id) & Q(user=request.user))
+    add.delete()
+    data = {
+        "message": "Address deleted!",
+    }
+    return JsonResponse(data)
+
+
+@login_required
 def addtocart_view(request):
     user = request.user
     pet_id = request.GET.get("pet_id").replace("/", "")

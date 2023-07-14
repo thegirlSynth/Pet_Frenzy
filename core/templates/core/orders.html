@@ -15,6 +15,7 @@
 
         <div class="col-sm-9 offset-sm-1">
             <div class="row">
+                {% if order_placed %}
                 {% for op in order_placed %}
                     <div class="col-sm-2">
                         <img src="{{op.pet.pet_image.url}}" class="img-fluid" height="100" width="100"/>
@@ -63,6 +64,9 @@
                         {% endif %}
                     </div>
                 {% endfor %}
+                {% else %}
+                <h2>You haven't made any orders yet!</h2>
+                {% endif %}
             </div>
         </div>
     </div>

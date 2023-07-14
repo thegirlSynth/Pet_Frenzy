@@ -92,9 +92,9 @@ class BreedView(View):
 
 
 class CategoryName(View):
-    def get(self, request, value):
-        pets = Pet.objects.filter(name=value)
-        names = Pet.objects.filter(category=pets[0].category).values("name")
+    def get(self, request):
+        pets = Pet.objects.all()
+        categories = pets.values_list("category", flat=True).distinct()
 
         totalitem = 0
         wishitem = 0
@@ -102,7 +102,7 @@ class CategoryName(View):
             totalitem = len(Cart.objects.filter(user=request.user))
             wishitem = len(WishList.objects.filter(user=request.user))
 
-        return render(request, "core/category.html", locals())
+        return render(request, "core/pets.html", locals())
 
 
 class PetDetails(View):

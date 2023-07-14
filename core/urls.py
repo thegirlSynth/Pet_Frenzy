@@ -16,7 +16,7 @@ urlpatterns = [
     path("", myviews.homepage_view, name="home"),
     path("about/", myviews.aboutpage_view, name="about"),
     path("contact/", myviews.contactpage_view, name="contact"),
-    path("category/<slug:value>", myviews.CategoryView.as_view(), name="category"),
+    path("category/<value>", myviews.CategoryView.as_view(), name="category"),
     path("pets/", myviews.CategoryName.as_view(), name="pets"),
     path("search", myviews.search, name="search"),
     path(

@@ -21,17 +21,16 @@ STATE_CHOICES = (
 )
 
 CATEGORY_CHOICES = (
-    ("DG", "Dog"),
-    ("CT", "Cat"),
-    ("HM", "Hamster"),
-    ("FR", "Ferret"),
-    ("SQ", "Squirrel"),
-    ("HH", "Hedgehog"),
-    ("GP", "GuineaPig"),
-    ("CH", "Chinchilla"),
-    ("AL", "Alpaca"),
-    ("LL", "Llama"),
-    ("OT", "Other"),
+    ("Dogs", "Dog"),
+    ("Cats", "Cat"),
+    ("Hamsters", "Hamster"),
+    ("Ferrets", "Ferret"),
+    ("Squirrels", "Squirrel"),
+    ("Hedgehogs", "Hedgehog"),
+    ("Guinea Pigs", "GuineaPig"),
+    ("Chinchillas", "Chinchilla"),
+    ("Alpacas", "Alpaca"),
+    ("Others", "Other"),
 )
 
 STATUS_CHOICES = (
@@ -64,7 +63,7 @@ class Pet(models.Model):
     price = models.FloatField()
     description = models.TextField()
     disclaimer = models.TextField()
-    category = models.CharField(choices=CATEGORY_CHOICES, max_length=2)
+    category = models.CharField(choices=CATEGORY_CHOICES, max_length=20)
     pet_image = models.ImageField(upload_to="pet")
 
     def __str__(self):

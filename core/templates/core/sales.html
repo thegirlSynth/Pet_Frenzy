@@ -18,7 +18,9 @@
                 {% if listed_pets %}
                 {% for pet in listed_pets %}
                     <div class="col-sm-2">
-                        <img src="{{pet.pet.pet_image.url}}" class="img-fluid" height="100" width="100"/>
+                        <a href="{% url 'pet-details' pet.pet.id %}" class="btn">
+                        <img src="{{pet.pet.pet_image.url}}" class="img-fluid img-thumbnail" height="100" width="100"/>
+                        </a>
                     </div>
                     <div class="col-sm-7">
                         <p>Pet: {{pet.pet.name}} </p>

@@ -6,21 +6,20 @@
 {% block main-content %}
     <div class="container my-5">
         <div class="row">
-             <div class="col-sm-8">
-                <div class="row flex justify-content-between">
+            <div class="col-sm-9">
+                <div class="row">
                     {% for pet in pets %}
-                    <div class="col-sm-4 text-center mb-4 hover-shadow">
+                    <div class="col text-center mb-4">
                         <a href="{% url 'pet-details' pet.id %}" class="btn">
                             <div>
-                                <img src="{{pet.pet_image.url}}" width="300px" height="200px"/>
+                                <img src="{{pet.pet_image.url}}" width="300px" height="200px" class="img-fluid img-thumbnail shadow-sm"/>
                                 <div class="fw-bold">{{pet.name}}</div>
-                                <div class="fw-bold text-danger">${{pet.price}}</div>
+                                <div class="fw-bold text-danger">NGN. {{pet.price}}</div>
                             </div>
                         </a>
                     </div>
                     {% endfor %}
                 </div>
-            </div>
         </div>
     </div>
 {% endblock main-content %}

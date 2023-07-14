@@ -1,12 +1,12 @@
 from django.contrib import admin
-from .models import Pet, PetUser, Cart, Payment, OrderPlaced, WishList
+from .models import Pet, PetUser, Cart, Payment, OrderPlaced, WishList, PetSold
 
 # Register your models here.
 
 
 @admin.register(Pet)
 class PetModelAdmin(admin.ModelAdmin):
-    list_display = ["id", "name", "price", "category", "pet_image"]
+    list_display = ["id", "name", "user", "price", "category", "pet_image"]
 
 
 @admin.register(PetUser)
@@ -16,7 +16,7 @@ class UserModelAdmin(admin.ModelAdmin):
 
 @admin.register(Cart)
 class CartModelAdmin(admin.ModelAdmin):
-    list_display = ["id", "user", "pet", "quantity"]
+    list_display = ["id", "user", "pet"]
 
 
 @admin.register(Payment)
@@ -31,7 +31,6 @@ class OrderPlacedModelAdmin(admin.ModelAdmin):
         "user",
         "petuser",
         "pet",
-        "quantity",
         "ordered_date",
         "status",
         "payment",
@@ -41,3 +40,14 @@ class OrderPlacedModelAdmin(admin.ModelAdmin):
 @admin.register(WishList)
 class WishListModelAdmin(admin.ModelAdmin):
     list_display = ["id", "user", "pet"]
+
+
+@admin.register(PetSold)
+class PetSoldModelAdmin(admin.ModelAdmin):
+    list_display = [
+        "id",
+        "user",
+        "pet",
+        "ordered_date",
+        "status",
+    ]

@@ -1,6 +1,6 @@
 {% extends 'core/base.html' %}
 {% load static %}
-{% block title %} Orders {% endblock title %}
+{% block title %} Sales {% endblock title %}
 
 {% block main-content %}
 <div class="container  my-5">
@@ -9,54 +9,48 @@
 
         <div class="col-sm-2 border-end">
             <ul class="list-unstyled">
-                <li class="d-grid"><a href="{% url 'orders' %}" class="btn btn-primary">Orders</a></li>
+                <li class="d-grid"><a href="{% url 'sell' %}" class="btn btn-primary">List a new Pet</a></li>
             </ul>
         </div>
 
         <div class="col-sm-9 offset-sm-1">
             <div class="row">
-                {% if order_placed %}
-                {% for op in order_placed %}
+                {% if listed_pets %}
+                {% for pet in listed_pets %}
                     <div class="col-sm-2">
-                        <img src="{{op.pet.pet_image.url}}" class="img-fluid" height="100" width="100"/>
+                        <img src="{{pet.pet.pet_image.url}}" class="img-fluid" height="100" width="100"/>
                     </div>
                     <div class="col-sm-7">
-                        <p>Pet: {{op.pet.name}} </p>
-                        <p>Price: {{op.total_cost}}
+                        <p>Pet: {{pet.pet.name}} </p>
+                        <p>Price: {{pet.pet.price}}
                     </div>
                     <div class="col-sm-3">
-                        <p>Order Status: {{op.status}}
-                        {% if op.status == "Accepted" %}
+                        <p>Pet Status: {{pet.status}}
+                        {% if pet.status == "Listed" %}
                         <div class="progress">
-                            <div class="progress-bar" role="progressbar" style="width:  20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar" role="progressbar" style="width:  30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                         {% endif %}
 
-                        {% if op.status == "Packed" %}
-                        <div class="progress">
-                            <div class="progress-bar bg-info" role="progressbar" style="width:  40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        {% endif %}
-
-                        {% if op.status == "On the way" %}
+                        {% if pet.status == "Added to Cart" %}
                         <div class="progress">
                             <div class="progress-ba bg-warning" role="progressbar" style="width:  70%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                         {% endif %}
 
-                        {% if op.status == "Delivered" %}
+                        {% if pet.status == "Sold" %}
                         <div class="progress">
                             <div class="progress-bar bg-success" role="progressbar" style="width:  100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                         {% endif %}
 
-                        {% if op.status == "Cancelled" %}
+                        {% if pet.status == "Order Cancelled" %}
                         <div class="progress">
                             <div class="progress-bar bg-danger" role="progressbar" style="width:  100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                         {% endif %}
 
-                        {% if op.status == "Pending" %}
+                        {% if pet.status == "Pending" %}
                         <div class="progress">
                             <div class="progress-bar" role="progressbar" style="width:  0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
@@ -64,7 +58,7 @@
                     </div>
                 {% endfor %}
                 {% else %}
-                <h2>You haven't made any orders yet!</h2>
+                <h2>You haven't listed any pet for sale yet!</h2>
                 {% endif %}
             </div>
         </div>

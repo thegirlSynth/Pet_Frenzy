@@ -43,6 +43,14 @@ STATUS_CHOICES = (
     ("Pending", "Pending"),
 )
 
+SALESTATUS_CHOICES = (
+    ("Listed", "Listed"),
+    ("Added to Cart", "Added to Cart"),
+    ("Sold", "Sold"),
+    ("Order Cancelled", "Order Cancelled"),
+    ("Pending", "Pending"),
+)
+
 
 class Pet(models.Model):
     """
@@ -50,10 +58,12 @@ class Pet(models.Model):
     """
 
     name = models.CharField(max_length=100)
+    user = models.CharField(max_length=100)
     breed = models.CharField(max_length=100)
     age_in_weeks = models.IntegerField()
     price = models.FloatField()
     description = models.TextField()
+    disclaimer = models.TextField()
     category = models.CharField(choices=CATEGORY_CHOICES, max_length=2)
     pet_image = models.ImageField(upload_to="pet")
 
@@ -85,11 +95,10 @@ class Cart(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     pet = models.ForeignKey(Pet, on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField(default=1)
 
     @property
     def total_cost(self):
-        return self.quantity * self.pet.price
+        return self.pet.price
 
 
 class Payment(models.Model):
@@ -142,16 +151,28 @@ class OrderPlaced(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     petuser = models.ForeignKey(PetUser, on_delete=models.CASCADE)
     pet = models.ForeignKey(Pet, on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField(default=1)
     ordered_date = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=50, choices=STATUS_CHOICES, default="Pending")
     payment = models.ForeignKey(Payment, on_delete=models.CASCADE)
 
     @property
     def total_cost(self):
-        return self.quantity * self.pet.price
+        return self.pet.price
 
 
 class WishList(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     pet = models.ForeignKey(Pet, on_delete=models.CASCADE)
+
+
+class PetSold(models.Model):
+    """
+    Default class for Sold Pets
+    """
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    pet = models.ForeignKey(Pet, on_delete=models.CASCADE)
+    ordered_date = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(
+        max_length=50, choices=SALESTATUS_CHOICES, default="Pending"
+    )

@@ -44,6 +44,8 @@ urlpatterns = [
         name="verify_payment",
     ),
     path("orders", myviews.orders, name="orders"),
+    path("sell", myviews.sell.as_view(), name="sell"),
+    path("sales", myviews.petsonsale, name="sales"),
     path("pluswishlist", myviews.plus_wishlist),
     path("minuswishlist", myviews.minus_wishlist),
     #

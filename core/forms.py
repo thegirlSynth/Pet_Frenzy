@@ -8,7 +8,7 @@ from django.contrib.auth.forms import (
     PasswordResetForm,
 )
 from django.contrib.auth.models import User
-from .models import PetUser
+from .models import PetUser, Pet
 
 
 class LoginForm(AuthenticationForm):
@@ -97,3 +97,29 @@ class UserProfileForm(forms.ModelForm):
             "zipcode": forms.NumberInput(attrs={"class": "form-control"}),
             "state": forms.Select(attrs={"class": "form-control"}),
         }
+
+
+class SellPetForm(forms.ModelForm):
+    class Meta:
+        model = Pet
+        fields = [
+            "name",
+            "breed",
+            "age_in_weeks",
+            "price",
+            "description",
+            "disclaimer",
+            "category",
+            "pet_image",
+        ]
+        widgets = {
+            "name": forms.TextInput(attrs={"class": "form-control"}),
+            "breed": forms.TextInput(attrs={"class": "form-control"}),
+            "age_in_weeks": forms.NumberInput(attrs={"class": "form-control"}),
+            "price": forms.NumberInput(attrs={"class": "form-control"}),
+            "description": forms.Textarea(attrs={"class": "form-control"}),
+            "disclaimer": forms.TextInput(attrs={"class": "form-control"}),
+            "category": forms.Select(attrs={"class": "form-control"}),
+            "pet_image": forms.ClearableFileInput(attrs={"class": "form-control"}),
+        }
+        labels = {"disclaimer": "Special Feature/Disclaimer"}

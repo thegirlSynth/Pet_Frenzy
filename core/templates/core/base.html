@@ -74,11 +74,12 @@
                         <li class="nav-item dropdown mx-2">
                             <a class="nav-link text-white dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
-                                Synth
+                                <span class="text-capitalize">{{request.user}}</span>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
                                 <li><a class="dropdown-item" href="{% url 'orders' %}">Orders</a></li>
+                                <li><a class="dropdown-item" href="{% url 'sell' %}">Sell a Pet</a></li>
                                 <li><a class="dropdown-item" href="{% url 'password-change' %}">Change Password</a></li>
                                 <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
                             </ul>

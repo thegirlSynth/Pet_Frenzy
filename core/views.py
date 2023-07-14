@@ -2,8 +2,13 @@ from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.views import View
 from django.http import JsonResponse
-from .models import Pet, PetUser, Cart, Payment, OrderPlaced, WishList
-from .forms import UserRegistrationForm, UserProfileForm, UserPasswordResetForm
+from .models import Pet, PetUser, Cart, Payment, OrderPlaced, WishList, PetSold
+from .forms import (
+    UserRegistrationForm,
+    UserProfileForm,
+    UserPasswordResetForm,
+    SellPetForm,
+)
 from django.contrib import messages
 from django.conf import settings
 from django.forms.models import model_to_dict
@@ -228,8 +233,7 @@ def showcart_view(request):
     cart = Cart.objects.filter(user=user)
     amount = 0
     for pt in cart:
-        value = pt.quantity * pt.pet.price
-        amount = amount + value
+        amount = amount + pt.pet.price
     totalamount = amount + 2500
 
     totalitem = 0
@@ -265,8 +269,7 @@ def removecart_view(request):
         cart = Cart.objects.filter(user=user)
         amount = 0
         for p in cart:
-            value = p.quantity * p.pet.price
-            amount = amount + value
+            amount = amount + p.pet.price
         totalamount = amount + 2500
         data = {"amount": amount, "totalamount": totalamount}
         return JsonResponse(data)
@@ -294,8 +297,7 @@ class checkout_view(View):
         cart_items = Cart.objects.filter(user=user)
         amount = 0
         for p in cart_items:
-            value = p.quantity * p.pet.price
-            amount = amount + value
+            amount = amount + p.pet.price
         totalamount = amount + 2500
 
         email = user.email
@@ -329,7 +331,6 @@ def verify_payment(request, ref, uid):
                 user=request.user,
                 petuser=petuser,
                 pet=c.pet,
-                quantity=c.quantity,
                 payment=payment,
             ).save()
             c.delete()
@@ -376,3 +377,43 @@ def search(request):
         wishitem = len(WishList.objects.filter(user=request.user))
 
     return render(request, "core/search.html", locals())
+
+
+@method_decorator(login_required, name="dispatch")
+class sell(View):
+    def get(self, request):
+        form = SellPetForm()
+
+        totalitem = 0
+        wishitem = 0
+        if request.user.is_authenticated:
+            totalitem = len(Cart.objects.filter(user=request.user))
+            wishitem = len(WishList.objects.filter(user=request.user))
+        return render(request, "core/sellpet.html", locals())
+
+    def post(self, request):
+        form = SellPetForm(request.POST, request.FILES)
+        if form.is_valid():
+            pet = form.save(commit=False)
+            pet.user = request.user
+            pet.save()
+            PetSold.objects.create(user=request.user, pet=pet)
+            messages.success(request, "Congratulations! Pet added successfully.")
+            return redirect("sales")
+        else:
+            messages.warning(request, "Invalid input data")
+
+        return render(request, "core/sellpet.html", locals())
+
+
+@login_required
+def petsonsale(request):
+    listed_pets = PetSold.objects.filter(user=request.user)
+
+    totalitem = 0
+    wishitem = 0
+    if request.user.is_authenticated:
+        totalitem = len(Cart.objects.filter(user=request.user))
+        wishitem = len(WishList.objects.filter(user=request.user))
+
+    return render(request, "core/sales.html", locals())

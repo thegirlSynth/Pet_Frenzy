@@ -20,21 +20,26 @@
                     <li>{{pet.description}}</li>
                     <li><h5 style="color: red">Special feature: {{pet.disclaimer}}</h5></li>
                 </ul>
-                <form action="/add-to-cart" class="d-inline">
-                    <input type="hidden" name="pet_id" value={{pet.id}}/>
-                    <button type="submit" class="btn btn-primary shadow px-5 py-2"> Add to Cart
-                    </button>
-                </form>
-
-                <a href="{% url 'show-cart' %}" class="btn btn-warning shadow px-5 py-2 ms-4">Buy Now
-                </a>
-
-
-                {% if wishlist %}
-                <a pid={{pet.id}} class="minus-wishlist btn btn-danger"><i class="fas fa-lg fa-heart"></i></a>
-                {% else %}
-                <a pid={{pet.id}} class="plus-wishlist btn btn-success"><i class="fas fa-lg fa-heart"></i></a>
-                {% endif %}
+                <div class="row gy-3">
+                    <div class="col-md-auto">
+                        <form action="/add-to-cart" class="d-inline">
+                            <input type="hidden" name="pet_id" value={{pet.id}}/>
+                            <button type="submit" class="btn btn-primary shadow px-5 py-2"> Add to Cart
+                            </button>
+                        </form>
+                    </div>
+                    <div class="col-md-auto">
+                        <a href="{% url 'show-cart' %}" class="btn btn-warning shadow px-5 py-2">Buy Now
+                        </a>
+                    </div>
+                    <div class="col">
+                        {% if wishlist %}
+                        <a pid={{pet.id}} class="minus-wishlist btn btn-danger"><i class="fas fa-lg fa-heart"></i></a>
+                        {% else %}
+                        <a pid={{pet.id}} class="plus-wishlist btn btn-success"><i class="fas fa-lg fa-heart"></i></a>
+                        {% endif %}
+                    </div>
+                </div>
             </div>
         </div>
     </div>

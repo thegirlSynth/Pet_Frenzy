@@ -128,7 +128,7 @@ class UserRegistrationView(View):
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, "Congratulations! Welcome aboard.")
+            # messages.success(request, "Congratulations! Welcome aboard.")
         else:
             messages.warning(request, "Invalid input data")
         return render(request, "core/userregistration.html", locals())
@@ -166,7 +166,7 @@ class ProfileView(View):
                 state=state,
             )
             newUser.save()
-            messages.success(request, "Congratulations! Profile updated.")
+            # messages.success(request, "Congratulations! Profile updated.")
         else:
             messages.warning(request, "Invalid input data")
 
@@ -209,7 +209,7 @@ class UpdateAddress(View):
             add.zipcode = form.cleaned_data["zipcode"]
             add.state = form.cleaned_data["state"]
             add.save()
-            messages.success(request, "Congratulations! Profile updated.")
+            # messages.success(request, "Congratulations! Profile updated.")
         else:
             messages.warning(request, "Invalid input data")
 
@@ -409,7 +409,7 @@ class sell(View):
             pet.user = request.user
             pet.save()
             PetSold.objects.create(user=request.user, pet=pet)
-            messages.success(request, "Congratulations! Pet added successfully.")
+            # messages.success(request, "Congratulations! Pet added successfully.")
             return redirect("sales")
         else:
             messages.warning(request, "Invalid input data")

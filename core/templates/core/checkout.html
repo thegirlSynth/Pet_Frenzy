@@ -16,6 +16,7 @@
             {% for item in cart_items %}
                 <div class="card mb-2">
                     <div class="card-body">
+                        <div class="col-sm-3 text-center align-self-center"><img src="{{item.pet.pet_image.url}}" alt="" srcset="" height="150" width="150" class="img-fluid img-thumbnail shadow-sm"></div>
                         <h5>Pet: {{item.pet.name}} </h5>
                         <p class="fw-bold">Price: NGN. {{item.pet.price}} </p>
                     </div>

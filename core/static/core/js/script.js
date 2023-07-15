@@ -67,3 +67,18 @@ $(".delete-address").click(function () {
         },
     })
 })
+
+//Control footer
+$(document).ready(function () {
+    var footer = $('.footer');
+
+    $(window).scroll(function () {
+        if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
+            // Reached the bottom of the page, show the footer
+            footer.fadeIn();
+        } else {
+            // Scrolling in the middle of the page, fade out the footer
+            footer.fadeOut();
+        }
+    });
+});
